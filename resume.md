@@ -24,7 +24,7 @@ automation and am excited to find creative solutions to problems.
 #### Sales Engineer -- August 2021 - September 2022
 * Launched a **Golang SDK** for Orka and implemented work flow to automate configuration and testing of PoC environments saving 20 minutes per environment
 * Created **Docker** work flow allowing customers to trial the Orka Jenkins plugin in under 5 minutes
-* Extensively investigated customer pains to identify professional services opportunities, resulting in \$150k annual revenue
+* Extensively investigated customer pains to identify professional services opportunities, resulting in $150k annual revenue
 * Grew the Sales Engineering team from two to five members by identifying underserved areas in the customer journey
 
 #### Technical Account Manager -- October 2020 - August 2021
@@ -43,6 +43,11 @@ automation and am excited to find creative solutions to problems.
 * **Golang** application to track songs streamed from Spotify, similar to last.fm
 * Songs streamed are written to a **MySQL** database along with artist, album and stream time details
 
+### Terminal Website
+* You're on it right now! 
+* **Golang** application using Charmbraclet's Bubbletea, Wish, and Glamour to host a version of my website in the terminal
+* Utilizes GitHub Actions for **CI/CD** from cjflan/connorjf.ssh to a Linode VM for automated updates and deployments
+
 ## Technical Skills
 Languages: Golang, Python, MATLAB \
 Technologies: Jenkins, GitHub Actions, Kubernetes, Docker, Terraform, Prometheus, GNU coreutils, Orka \
@@ -51,7 +56,6 @@ Platforms: MacOS, Ubuntu, Windows
 ## Education
 ### Georgia Institute of Technology -- Atlanta, GA
 Bachelor of Science, Aerospace Engineering
-
 
 ## Research
 
