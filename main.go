@@ -29,7 +29,7 @@ import (
 var r string
 
 const (
-	host = "0.0.0.0"
+	host = "172.234.29.199"
 	port = "23234"
 )
 
