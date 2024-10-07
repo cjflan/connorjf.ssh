@@ -1,4 +1,4 @@
-name: Go
+name: Deploy to Linode
 on: 
   push:
     branches:

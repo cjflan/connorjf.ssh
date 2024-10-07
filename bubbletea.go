@@ -91,7 +91,7 @@ func (m model) View() string {
 	page.WriteString("\n\n")
 
 	if m.err != nil {
-		e := fmt.Sprintf("Error with applicaiton: %s", m.err)
+		e := fmt.Sprintf("Error with application: %s", m.err)
 		page.WriteString(m.errorStyle.Render(e))
 		page.WriteString("\n\n")
 	}
@@ -135,7 +135,7 @@ func (m model) homeView() string {
 
 	s.WriteString(m.titleStyle.Render("how've i gotten here?"))
 	s.WriteString("\n\n")
-	s.WriteString(m.paraStyle.Render("i went to secondary school at the Georgia Instistute of Technology for a BS in Aerospace Engineering. Since then i’ve been working for MacStadium as a Sales Engineer. When I’m not at work I can be found going to EDM concerts, rock climbing, sailing, or trying to figure out when I’m next going skiing."))
+	s.WriteString(m.paraStyle.Render("i went to college at the Georgia Institute of Technology for a BS in Aerospace Engineering. These days i'm  working at MacStadium leading the Sales Engineering team. When I’m not at work I can be found going to EDM concerts, rock climbing, sailing, or trying to figure out when I’m next going skiing."))
 	s.WriteString("\n\n")
 	s.WriteString(m.paraStyle.Render("i am open to a new position in the software engineering space. you can find my resume by pressing 'r'!"))
 	s.WriteString("\n\n")
@@ -150,7 +150,7 @@ func (m model) homeView() string {
 		"learn to trad climb", 
 		"train to run a marathon (goal sub 3:30)",
 		"bike a century",
-		"cross country ski (classic) the americal birkibeiner",
+		"cross country ski (classic) the american birkibeiner",
 	}
 
 	t := m.paraStyle.Render(list.New(todo).String())
@@ -163,7 +163,7 @@ func (m model) homeView() string {
 		"complete an ironman",
 		"hike the pct",
 		"learn to backcountry ski",
-		"learn to sail a lazer",
+		"learn to sail a laser",
 		"bikepack the iceland ring road",
 	}
 	g := m.paraStyle.Render(list.New(goals).String())
@@ -179,7 +179,7 @@ func (m model) blogView() string {
 
 func (m model) resumeView() string {
 	if m.width < 83 {
-		return m.paraStyle.Render("Please expand terminal out to at least 83 charactors")
+		return m.paraStyle.Render("Please expand terminal out to at least 83 characters")
 	}
 	return m.viewport.View()
 }
