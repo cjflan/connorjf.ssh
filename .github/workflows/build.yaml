@@ -30,6 +30,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           port: ${{ secrets.PORT }}
-          key: ${{ secrets.LINDOE_SSH_KEY }}
+          key: ${{ secrets.LINODE_SSH_KEY }}
           source: "connorjf.ssh"
           target: ${{ secrets.PATH }}
