@@ -36,4 +36,4 @@ jobs:
       - name: Deploy to server
         run: |
           export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-          scp -o StrictHostKeyChecking=no -p ${{ secrets.PORT }} connorjf.ssh ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH }}/
+          scp -T -o StrictHostKeyChecking=no -p ${{ secrets.PORT }} connorjf.ssh ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH }}/
