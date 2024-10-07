@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PATH: /usr/local/bin:/usr/bin:/bin:$PATH
 
     steps:
       - name: Checkout Code
@@ -28,6 +26,7 @@ jobs:
 
       - name: Set up SSH key
         run: |
+          export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
           mkdir -p ~/.ssh
           echo ${{ secrets.LINDOE_SSH_KEY }} > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
@@ -35,4 +34,5 @@ jobs:
 
       - name: Deploy to server
         run: |
+          export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
           scp -p ${{ secrets.PORT }} connorjf.ssh {{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH }}/
