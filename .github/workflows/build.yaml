@@ -35,4 +35,4 @@ jobs:
       - name: Deploy to server
         run: |
           export PATH=$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-          scp -p ${{ secrets.PORT }} connorjf.ssh {{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH }}/
+          scp -p ${{ secrets.PORT }} connorjf.ssh ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.PATH }}/
