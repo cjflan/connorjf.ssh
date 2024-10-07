@@ -30,7 +30,8 @@ jobs:
           mkdir -p ~/.ssh
           echo ${{ secrets.LINDOE_SSH_KEY }} > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p ${{ secrets.PORT }} ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H -v -p ${{ secrets.PORT }} ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
