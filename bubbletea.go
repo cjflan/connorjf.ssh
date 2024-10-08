@@ -96,6 +96,10 @@ func (m model) View() string {
 		page.WriteString("\n\n")
 	}
 
+	if m.page == resume {
+		page.WriteString(m.quitStyle.Render("Press j/k to scroll down/up\n"))
+	}
+
 	page.WriteString(m.quitStyle.Render("Press 'q' to quit\n"))
 
 	return page.String()
