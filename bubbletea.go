@@ -37,6 +37,7 @@ const (
 	blog
 	resume
 	about
+	test
 )
 
 func (m model) Init() tea.Cmd {
@@ -60,6 +61,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.page = resume
 		case "a":
 			m.page = about
+		case "t":
+			m.page = test
 		}
 		if m.page == resume {
 			switch msg.String() {
@@ -97,10 +100,11 @@ func (m model) View() string {
 	}
 
 	if m.page == resume {
-		page.WriteString(m.quitStyle.Render("Press j/k to scroll down/up\n"))
+		page.WriteString(m.quitStyle.Render("Press 'j/k' to scroll down/up"))
+		page.WriteString("\n")
 	}
 
-	page.WriteString(m.quitStyle.Render("Press 'q' to quit\n"))
+	page.WriteString(m.quitStyle.Render("Press 'q' to quit"))
 
 	return page.String()
 }
