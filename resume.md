@@ -46,7 +46,7 @@ automation and am excited to find creative solutions to problems.
 ### Terminal Website
 * You're on it right now! 
 * **Golang** application using Charmbraclet's Bubbletea, Wish, and Glamour to host a version of my website in the terminal
-* Utilizes GitHub Actions for **CI/CD** from cjflan/connorjf.ssh to a Linode VM for automated updates and deployments
+* Utilizes **GitHub Actions** and **systemd** for **CI/CD** from cjflan/connorjf.ssh to a Linode VM for automated updates and deployments
 
 ## Technical Skills
 Languages: Golang, Python, MATLAB \
