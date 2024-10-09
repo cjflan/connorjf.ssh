@@ -17,7 +17,7 @@ automation and am excited to find creative solutions to problems.
 #### Senior Sales Engineer -- September 2022 - Present
 * Developed **Golang** CLI tools to automate common QC tasks and Orka cluster management
 * Built and maintained **Jenkins** based CI, nightly, and release pipelines for testing, building, and distributing Google Tensorflow MacOS wheels to PyPi
-* Shipped a **Python** framework for automated SOC2 and ISO27001 audit conformance gathering
+* Shipped a **Python** CLI tool for automated SOC2 and ISO27001 audit conformance gathering
 * Managed 78 accounts accounting for $27M in annual revenue
 * Coordinated efforts between 50+ team members across sales, operations, product and development orgs as **team lead**
 
