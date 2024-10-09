@@ -69,19 +69,27 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.page = resume
 		case key.Matches(msg, DefaultKeyMap.About):
 			m.page = about
-		case key.Matches(msg,DefaultKeyMap.Up):
+		case key.Matches(msg,DefaultKeyMap.UpLine):
 			if m.page == resume {
-				m.viewport.LineUp(ViewPortLineScroll)
+				m.viewport.LineUp(ViewportLineScroll)
 				break
 			}
-		case key.Matches(msg, DefaultKeyMap.Down):
+		case key.Matches(msg, DefaultKeyMap.UpPage):
 			if m.page == resume {
-				m.viewport.LineDown(ViewPortLineScroll)
+				m.viewport.HalfViewUp()
+				break
+			}
+		case key.Matches(msg, DefaultKeyMap.DownLine):
+			if m.page == resume {
+				m.viewport.LineDown(ViewportLineScroll)
+				break
+			}
+		case key.Matches(msg, DefaultKeyMap.DownPage):
+			if m.page == resume {
+				m.viewport.HalfViewDown()
 				break
 			}
 		}
-		
-		return m, nil
 	}
 	return m, nil
 }
@@ -119,8 +127,11 @@ func (m model) View() string {
 }
 
 type KeyMap struct {
-	Up   key.Binding
-	Down key.Binding
+	UpLine   key.Binding
+	UpPage   key.Binding
+	DownLine key.Binding
+	DownPage key.Binding
+
 	Quit key.Binding
 
 	Home   key.Binding
@@ -130,13 +141,21 @@ type KeyMap struct {
 }
 
 var DefaultKeyMap = KeyMap{
-	Up: key.NewBinding(
+	UpLine: key.NewBinding(
 		key.WithKeys("k", "up"),
 		key.WithHelp("↑/k", "move up"),
 	),
-	Down: key.NewBinding(
+	DownLine: key.NewBinding(
 		key.WithKeys("j", "down"),
 		key.WithHelp("↓/j", "move down"),
+	),
+	DownPage: key.NewBinding(
+		key.WithKeys("control-d"),
+		key.WithHelp("C-d", "Page Down"),
+	),
+	UpPage: key.NewBinding(
+		key.WithKeys("control-u"),
+		key.WithHelp("C-u", "Page Up"),
 	),
 	Quit: key.NewBinding(
 		key.WithKeys("q", "control-c"),
