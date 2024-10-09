@@ -43,19 +43,19 @@ var TokyoNightStyleConfig = ansi.StyleConfig{
 	H2: ansi.StyleBlock{
 		StylePrimitive: ansi.StylePrimitive{
 			Prefix: "## ",
-			Color: stringPtr("#d87c89"),
+			Color:  stringPtr("#d87c89"),
 		},
 	},
 	H3: ansi.StyleBlock{
 		StylePrimitive: ansi.StylePrimitive{
 			Prefix: "### ",
-			Color: stringPtr("#b7d87c"),
+			Color:  stringPtr("#b7d87c"),
 		},
 	},
 	H4: ansi.StyleBlock{
 		StylePrimitive: ansi.StylePrimitive{
 			Prefix: "#### ",
-			Color: stringPtr("#7cd8cb"),
+			Color:  stringPtr("#7cd8cb"),
 		},
 	},
 	H5: ansi.StyleBlock{

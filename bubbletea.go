@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -13,25 +14,29 @@ import (
 )
 
 type model struct {
-	page      page
-	term      string
-	profile   string
-	width     int
-	height    int
-	bg        string
-	err       error
-	viewport viewport.Model
-	navStyle lipgloss.Style
-	errorStyle lipgloss.Style
+	page        page
+	term        string
+	profile     string
+	width       int
+	height      int
+	bg          string
+	err         error
+
+	viewport    viewport.Model
+
+	navStyle    lipgloss.Style
+	errorStyle  lipgloss.Style
 	headerStyle lipgloss.Style
-	titleStyle lipgloss.Style
-	paraStyle lipgloss.Style
-	txtStyle  lipgloss.Style
-	listStyle lipgloss.Style
-	quitStyle lipgloss.Style
+	titleStyle  lipgloss.Style
+	paraStyle   lipgloss.Style
+	txtStyle    lipgloss.Style
+	todoStyle   lipgloss.Style
+	listStyle   lipgloss.Style
+	quitStyle   lipgloss.Style
 }
 
 type page int
+
 const (
 	home page = iota
 	blog
@@ -50,28 +55,29 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.viewport.Height = msg.Height - 10
 		m.width = msg.Width
 	case tea.KeyMsg:
-		switch msg.String() {
-		case "q", "ctrl+c":
+		switch {
+		case key.Matches(msg, DefaultKeyMap.Quit):
 			return m, tea.Quit
-		case "h":
+		case key.Matches(msg, DefaultKeyMap.Home):
 			m.page = home
-		case "b":
+		case key.Matches(msg, DefaultKeyMap.Blog):
 			m.page = blog
-		case "r":
+		case key.Matches(msg, DefaultKeyMap.Resume):
 			m.page = resume
-		case "a":
+		case key.Matches(msg, DefaultKeyMap.About):
 			m.page = about
-		case "t":
-			m.page = test
-		}
-		if m.page == resume {
-			switch msg.String() {
-			case "j":
-				m.viewport.LineDown(2)
-			case "k":
+		case key.Matches(msg,DefaultKeyMap.Up):
+			if m.page == resume {
 				m.viewport.LineUp(2)
+				break
+			}
+		case key.Matches(msg, DefaultKeyMap.Down):
+			if m.page == resume {
+				m.viewport.LineDown(2)
+				break
 			}
 		}
+		
 		return m, nil
 	}
 	return m, nil
@@ -109,6 +115,49 @@ func (m model) View() string {
 	return page.String()
 }
 
+type KeyMap struct {
+	Up   key.Binding
+	Down key.Binding
+	Quit key.Binding
+
+	Home   key.Binding
+	Resume key.Binding
+	Blog   key.Binding
+	About  key.Binding
+}
+
+var DefaultKeyMap = KeyMap{
+	Up: key.NewBinding(
+		key.WithKeys("k", "up"),
+		key.WithHelp("↑/k", "move up"),
+	),
+	Down: key.NewBinding(
+		key.WithKeys("j", "down"),
+		key.WithHelp("↓/j", "move down"),
+	),
+	Quit: key.NewBinding(
+		key.WithKeys("q", "control-c"),
+		key.WithHelp("q/C-c", "quit"),
+	),
+	Home: key.NewBinding(
+		key.WithKeys("h"),
+		key.WithHelp("h", "home page"),
+	),
+	Resume: key.NewBinding(
+		key.WithKeys("r"),
+		key.WithHelp("r", "resume page"),
+	),
+	Blog: key.NewBinding(
+		key.WithKeys("b"),
+		key.WithHelp("b", "blog page"),
+	),
+	About: key.NewBinding(
+		key.WithKeys("a"),
+		key.WithHelp("a", "about page"),
+	),
+
+}
+
 func (m model) headerView() string {
 	pages := []string{"h home", "b blog", "r resume", "a about"}
 	for i, page := range pages {
@@ -123,7 +172,7 @@ func (m model) headerView() string {
 		Border(lipgloss.ThickBorder()).
 		BorderStyle(m.navStyle).
 		Row(pages...)
-	
+
 	return h.String() + "\n\n"
 }
 
@@ -134,16 +183,14 @@ func (m model) homeView() string {
 	s.WriteString(m.paraStyle.Render("connor offline, connorjf/enso online"))
 	s.WriteString("\n\n")
 
-
 	s.WriteString(m.titleStyle.Render("how would i describe myself?"))
 	s.WriteString("\n\n")
 	s.WriteString(m.paraStyle.Render("engineer. tech enthusiast. outdoors lover."))
 	s.WriteString("\n\n")
 
-
 	s.WriteString(m.titleStyle.Render("how've i gotten here?"))
 	s.WriteString("\n\n")
-	s.WriteString(m.paraStyle.Render("i went to college at the Georgia Institute of Technology for a BS in Aerospace Engineering. These days i'm  working at MacStadium leading the Sales Engineering team. When I’m not at work I can be found going to EDM concerts, rock climbing, sailing, or trying to figure out when I’m next going skiing."))
+	s.WriteString(m.paraStyle.Render("i went to college at the Georgia Institute of Technology for a BS in Aerospace Engineering. these days i'm  working at MacStadium leading the Sales Engineering team. when i’m not at work i can be found going to edm concerts, rock climbing, sailing, or trying to figure out when i’m next going skiing."))
 	s.WriteString("\n\n")
 	s.WriteString(m.paraStyle.Render("i am open to a new position in the software engineering space. you can find my resume by pressing 'r'!"))
 	s.WriteString("\n\n")
@@ -151,12 +198,12 @@ func (m model) homeView() string {
 	s.WriteString(m.titleStyle.Render("what am i up to now?"))
 	s.WriteString("\n\n")
 
-	s.WriteString(m.paraStyle.Foreground(lipgloss.Color("#0db9d7")).Render("things i'm working on"))
+	s.WriteString(m.todoStyle.Render("things i'm working on"))
 	s.WriteString("\n")
 	todo := []string{
-		"send a v10 boulder and climb 5.13 (in the gym)", 
-		"learn to trad climb", 
-		"train to run a marathon (goal sub 3:30)",
+		"send a v10 boulder and climb 5.13 (in the gym)",
+		"learn to trad climb",
+		"run a marathon (goal sub 3:30)",
 		"bike a century",
 		"cross country ski (classic) the american birkibeiner",
 	}
@@ -165,7 +212,7 @@ func (m model) homeView() string {
 	s.WriteString(t)
 	s.WriteString("\n\n")
 
-	s.WriteString(m.paraStyle.Foreground(lipgloss.Color("#0db9d7")).Render("things i want to do longer term"))
+	s.WriteString(m.todoStyle.Render("things i want to do longer term"))
 	s.WriteString("\n")
 	goals := []string{
 		"complete an ironman",

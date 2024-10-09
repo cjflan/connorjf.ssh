@@ -76,6 +76,7 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	navStyle := renderer.NewStyle().Foreground(lipgloss.Color("#c0caf5"))
 	txtStyle := renderer.NewStyle().Foreground(lipgloss.Color("10"))
 	quitStyle := renderer.NewStyle().Foreground(lipgloss.Color("#565f89"))
+	todoStyle := renderer.NewStyle().Foreground(lipgloss.Color("#0db9d7"))
 	paraStyle := renderer.NewStyle().Foreground(lipgloss.Color("#c0caf5")).
 		Width(80)
 	titleStyle := renderer.NewStyle().Foreground(lipgloss.Color("#ff9e64")).
@@ -98,15 +99,16 @@ func teaHandler(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 	vp.SetContent(str)
 
 	m := model{
-		profile:   renderer.ColorProfile().Name(),
+		profile:     renderer.ColorProfile().Name(),
 		headerStyle: headerStyle,
-		navStyle: navStyle,
-		titleStyle: titleStyle,
-		txtStyle:  txtStyle,
-		quitStyle: quitStyle,
-		paraStyle: paraStyle,
-		viewport: vp,
-		page: home,
+		navStyle:    navStyle,
+		titleStyle:  titleStyle,
+		txtStyle:    txtStyle,
+		quitStyle:   quitStyle,
+		paraStyle:   paraStyle,
+		todoStyle:   todoStyle,
+		viewport:    vp,
+		page:        home,
 	}
 	return m, []tea.ProgramOption{tea.WithAltScreen()}
 }
