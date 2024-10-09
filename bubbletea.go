@@ -49,10 +49,13 @@ func (m model) Init() tea.Cmd {
 	return nil
 }
 
+const ViewportLineScroll int = 1
+const TitleHelptextHeight int = 10
+
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
-		m.viewport.Height = msg.Height - 10
+		m.viewport.Height = msg.Height - TitleHelptextHeight
 		m.width = msg.Width
 	case tea.KeyMsg:
 		switch {
@@ -68,12 +71,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.page = about
 		case key.Matches(msg,DefaultKeyMap.Up):
 			if m.page == resume {
-				m.viewport.LineUp(2)
+				m.viewport.LineUp(ViewPortLineScroll)
 				break
 			}
 		case key.Matches(msg, DefaultKeyMap.Down):
 			if m.page == resume {
-				m.viewport.LineDown(2)
+				m.viewport.LineDown(ViewPortLineScroll)
 				break
 			}
 		}
